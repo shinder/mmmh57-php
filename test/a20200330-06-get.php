@@ -13,3 +13,10 @@ for($i=1; $i<=$a; $i++){
     echo "<td>$i</td>";
 }
 echo '</tr></table>';
+
+
+echo '<table>';
+for($i=1; $i<=$a; $i++){
+    echo "<tr><td>$i</td></tr>";
+}
+echo '</table>';
