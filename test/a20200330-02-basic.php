@@ -10,6 +10,10 @@
 <body>
 <?php
 
+$my = 123;
+
+echo $my;
+
 
 ?>
 </body>
