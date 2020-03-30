@@ -11,8 +11,18 @@
 <?php
 
 $my = 123;
+$a = "55";
+$b = "abc";
 
-echo $my;
+echo $my + $a; // + 只做數值的相加
+echo '<br>';
+echo $my + $b;
+echo '<br>';
+
+echo $my. $a; // . 做字串的串接
+echo '<br>';
+echo $my. $b;
+echo '<br>';
 
 
 ?>
