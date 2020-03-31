@@ -8,25 +8,22 @@
     <title>Document</title>
 </head>
 <body>
-<pre>
+
 <?php
 
-$ar1 = array(2,3,4,5, 'hello');
-$ar2 = [
-    2,
-    3,
-    4,
-    5,
-    ];
+$ar1 = [
+    'name' => 'Flora',
+    'age' => 26,
+    'gender' => 'female',
+    'id' => 'A26789',
+];
 
-$ar1[] = '您好'; // array push
-
-print_r($ar1);
-
-var_dump($ar1);
+foreach($ar1 as $k => $v){
+    echo "$k =&gt; $v <br>";
+}
 
 
 ?>
-    </pre>
+
 </body>
 </html>
