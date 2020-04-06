@@ -19,8 +19,12 @@
 <script src="../js/jquery-3.4.1.js"></script>
 <script>
     function mySubmit() {
-        $.post('a20200406-03-form-ajax-api.php', {a:10, b:20}, function(data){
+        $.post('a20200406-03-form-ajax-api.php', {
+            a: document.querySelector('#a').value,
+            b: $('#b').val()
+        }, function(data){
             console.log(data);
+            $('#c').val(data.c);
         }, 'json');
 
         return false;
