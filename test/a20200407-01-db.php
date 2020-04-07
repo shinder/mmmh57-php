@@ -5,6 +5,6 @@ require __DIR__. '/__connect_db.php';
 
 $stmt = $pdo->query("SELECT * FROM address_book");
 
-$row = $stmt->fetch();
+$rows = $stmt->fetchAll();
 
-print_r($row);
+echo json_encode($rows);
