@@ -29,9 +29,11 @@ $stmt = $pdo->query($sql);
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+                    <?php for($i=1; $i<=$totalPages; $i++): ?>
+                    <li class="page-item <?= $i===$page ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                    </li>
+                    <?php endfor; ?>
                 </ul>
             </nav>
         </div>
