@@ -1,6 +1,20 @@
 <?php
 require __DIR__. '/__connect_db.php';
 
+$perPage = 5;
+
+// 取得總筆數
+$totalRows = $pdo->query("SELECT COUNT(1) FROM `address_book`")
+    ->fetch(PDO::FETCH_NUM)[0];
+
+print_r($totalRows);
+
+exit;
+// exit; // 立刻結束程式
+// die('aaaa'); // 立刻結束程式
+
+
+
 $stmt = $pdo->query("SELECT * FROM `address_book`");
 
 ?>
