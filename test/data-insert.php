@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <form>
+            <form method="post">
                 <div class="form-group">
                     <label for="name">name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="mobile">mobile</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile">
+                    <input type="text" class="form-control" id="mobile" name="mobile" pattern="09\d{2}-?\d{3}-?\d{3}" required>
                     <small id="mobileHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
