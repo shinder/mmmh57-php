@@ -2,20 +2,24 @@
 require __DIR__. '/__connect_db.php';
 
 $perPage = 5;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 // 取得總筆數
 $totalRows = $pdo->query("SELECT COUNT(1) FROM `address_book`")
     ->fetch(PDO::FETCH_NUM)[0];
 
-print_r($totalRows);
+// 算總頁數
+$totalPages = ceil($totalRows/$perPage);
 
-exit;
+
 // exit; // 立刻結束程式
 // die('aaaa'); // 立刻結束程式
 
+$sql = sprintf("SELECT * FROM `address_book` LIMIT %s, %s", ($page-1)*$perPage, $perPage);
 
 
-$stmt = $pdo->query("SELECT * FROM `address_book`");
+
+$stmt = $pdo->query($sql);
 
 ?>
 <?php include __DIR__. '/parts/html-head.php';   ?>
