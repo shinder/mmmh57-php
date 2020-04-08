@@ -15,7 +15,7 @@ $totalPages = ceil($totalRows / $perPage);
 // exit; // 立刻結束程式
 // die('aaaa'); // 立刻結束程式
 
-$sql = sprintf("SELECT * FROM `address_book` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+$sql = sprintf("SELECT * FROM `address_book` ORDER BY `sid` DESC LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
 
 
 $stmt = $pdo->query($sql);
