@@ -1,24 +1,30 @@
 <?php
-//require __DIR__ . '/__connect_db.php';
-//
-//$perPage = 5;
-//$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-//
-//// 取得總筆數
-//$totalRows = $pdo->query("SELECT COUNT(1) FROM `address_book`")
-//    ->fetch(PDO::FETCH_NUM)[0];
-//
-//// 算總頁數
-//$totalPages = ceil($totalRows / $perPage);
-//
-//
-//// exit; // 立刻結束程式
-//// die('aaaa'); // 立刻結束程式
-//
-//$sql = sprintf("SELECT * FROM `address_book` LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
-//
-//
-//$stmt = $pdo->query($sql);
+require __DIR__ . '/__connect_db.php';
+
+if(isset($_POST['name']) and isset($_POST['mobile'])) {
+
+    $sql = "INSERT INTO `address_book`(
+`name`, `email`, `mobile`, `birthday`, `address`, `created_at`
+) VALUES (?, ?, ?, ?, ?, NOW())";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        $_POST['name'],
+        $_POST['email'],
+        $_POST['mobile'],
+        $_POST['birthday'],
+        $_POST['address'],
+    ]);
+
+
+    echo $stmt->rowCount(); exit;
+
+
+
+}
+
+
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
