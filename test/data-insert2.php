@@ -11,13 +11,13 @@ $page_name = 'data-insert2';
     </style>
 <div class="container">
 
-        <div id="info-bal" class="alert alert-success" role="alert" style="display: none">
+        <div id="info-bar" class="alert alert-success" role="alert" style="display: none">
             123
         </div>
 
     <div class="row">
         <div class="col-lg-6">
-            <form method="post" onsubmit="return checkForm()" novalidate>
+            <form name="form1" method="post" onsubmit="return checkForm()" novalidate>
                 <div class="form-group">
                     <label for="name">* name</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -67,6 +67,7 @@ $page_name = 'data-insert2';
     function checkForm(){
         let isPass = true; // 有沒有通過檢查
         // 回復提示設定
+        $('#info-bar').hide();
         $name.css('border-color', '#CCCCCC');
         $nameHelp.text('');
 
@@ -94,6 +95,16 @@ $page_name = 'data-insert2';
             $mobile.css('border-color', 'red');
             $mobileHelp.text('請填寫正確的手機號碼');
             isPass = false;
+        }
+
+        if(isPass){
+            $.post('data-insert-api.php', $(document.form1).serialize(), function(data){
+                if(data.success){
+                    $('#info-bar').show().text('新增成功');
+                } else {
+
+                }
+            }, 'json');
         }
 
         return false;

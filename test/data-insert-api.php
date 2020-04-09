@@ -1,7 +1,17 @@
 <?php
 require __DIR__ . '/__connect_db.php';
 
+$output = [
+    'success' => false,
+    'error' => '欄位資料不足',
+    'code' => 0,
+];
+
 if(isset($_POST['name']) and isset($_POST['mobile'])) {
+    // TODO: 欄位資料檢查
+
+
+
 
     $sql = "INSERT INTO `address_book`(
 `name`, `email`, `mobile`, `birthday`, `address`, `created_at`
@@ -18,8 +28,11 @@ if(isset($_POST['name']) and isset($_POST['mobile'])) {
     ]);
 
     if($stmt->rowCount()==1){
-        $success = true;
+        $output['success'] = true;
+        $output['error'] = '';
     } else {
-        $success = false;
+        $output['error'] = '資料無法新增';
     }
 }
+
+echo json_encode($output, JSON_UNESCAPED_UNICODE);
