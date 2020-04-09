@@ -11,6 +11,10 @@ $totalRows = $pdo->query("SELECT COUNT(1) FROM `address_book`")
 // 算總頁數
 $totalPages = ceil($totalRows / $perPage);
 
+if($page<1 or $page>$totalPages){
+    header('Location: data-list.php');
+    exit;
+}
 
 // exit; // 立刻結束程式
 // die('aaaa'); // 立刻結束程式
@@ -29,11 +33,17 @@ $stmt = $pdo->query($sql);
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
+                    <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page-1 ?>">&lt;</a>
+                    </li>
                     <?php for($i=1; $i<=$totalPages; $i++): ?>
                     <li class="page-item <?= $i===$page ? 'active' : '' ?>">
                         <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                     </li>
                     <?php endfor; ?>
+                    <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page+1 ?>">&gt;</a>
+                    </li>
                 </ul>
             </nav>
         </div>
