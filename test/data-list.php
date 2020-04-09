@@ -34,7 +34,9 @@ $stmt = $pdo->query($sql);
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page-1 ?>">&lt;</a>
+                        <a class="page-link" href="?page=<?= $page-1 ?>">
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </a>
                     </li>
                     <?php for($i=1; $i<=$totalPages; $i++): ?>
                     <li class="page-item <?= $i===$page ? 'active' : '' ?>">
@@ -42,7 +44,9 @@ $stmt = $pdo->query($sql);
                     </li>
                     <?php endfor; ?>
                     <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page+1 ?>">&gt;</a>
+                        <a class="page-link" href="?page=<?= $page+1 ?>">
+                            <i class="fas fa-arrow-circle-right"></i>
+                        </a>
                     </li>
                 </ul>
             </nav>
