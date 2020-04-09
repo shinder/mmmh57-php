@@ -8,7 +8,6 @@
     <title><?= isset($title) ? $title : '我的網站' ?></title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../fontawesome/css/all.css">
-    <script src="../js/jquery-3.4.1.js"></script>
-    <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+
 </head>
 <body>

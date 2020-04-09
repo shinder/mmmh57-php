@@ -86,4 +86,8 @@ $stmt = $pdo->query($sql);
     </div>
 </div>
 
+<?php include __DIR__ . '/parts/scripts.php'; ?>
+<script>
+
+</script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
