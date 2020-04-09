@@ -1,3 +1,8 @@
+<?php
+if(! isset($page_name)){
+    $page_name = '';
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">Navbar</a>
@@ -8,14 +13,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item <?= $page_name=='data-list' ? 'active' : '' ?>">
                     <a class="nav-link" href="data-list.php">資料列表</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item <?= $page_name=='data-insert' ? 'active' : '' ?>">
                     <a class="nav-link" href="data-insert.php">新增資料</a>
                 </li>
-
+                <li class="nav-item <?= $page_name=='data-insert2' ? 'active' : '' ?>">
+                    <a class="nav-link" href="data-insert2.php">新增資料 2 ajax</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+<style>
+    #navbarSupportedContent .nav-item.active {
+        background-color: #7abaff;
+    }
+</style>

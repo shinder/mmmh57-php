@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/__connect_db.php';
-
+$page_name = 'data-list';
 $perPage = 5;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
