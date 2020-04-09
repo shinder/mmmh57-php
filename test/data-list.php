@@ -60,7 +60,10 @@ $stmt = $pdo->query($sql);
                         <td><?= $r['mobile'] ?></td>
                         <td><?= $r['email'] ?></td>
                         <td><?= $r['birthday'] ?></td>
-                        <td><?= $r['address'] ?></td>
+                        <?php /*
+                        <td><?= strip_tags($r['address']) ?></td>
+                        */ ?>
+                        <td><?= htmlentities($r['address']) ?></td>
                     </tr>
                 <?php endwhile; ?>
                 </tbody>
