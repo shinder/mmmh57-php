@@ -78,7 +78,7 @@ $stmt = $pdo->query($sql);
                 <?php while ($r = $stmt->fetch()): ?>
                     <tr>
                         <td>
-                            <a href="data-delete.php?sid=<?= $r['sid'] ?>">
+                            <a href="javascript: delete_it(<?= $r['sid'] ?>)">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
@@ -106,6 +106,10 @@ $stmt = $pdo->query($sql);
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
-
+    function delete_it(sid){
+        if(confirm(`確定要刪除資料編號為 ${sid} 的項目嗎?`)){
+            location.href = 'data-delete.php?sid=' + sid;
+        }
+    }
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
