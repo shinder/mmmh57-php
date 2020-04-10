@@ -3,8 +3,9 @@ require __DIR__ . '/__connect_db.php';
 
 // 回應的資料類型為 JSON
 header('Content-Type: application/json');
-// mime type 預設為 text/html
-// jpg 檔的 mime type ?
+
+// 讓 email 的內容不要重複
+// UPDATE `address_book` SET `email`=CONCAT(ROUND(RAND()*100000),'@gmail.com')
 
 $output = [
     'success' => false,
