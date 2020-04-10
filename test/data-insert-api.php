@@ -1,15 +1,30 @@
 <?php
 require __DIR__ . '/__connect_db.php';
 
+// 回應的資料類型為 JSON
+header('Content-Type: application/json');
+// mime type 預設為 text/html
+// jpg 檔的 mime type ?
+
 $output = [
     'success' => false,
     'error' => '欄位資料不足',
     'code' => 0,
+    'postData' => $_POST
 ];
 
 if(isset($_POST['name']) and isset($_POST['mobile'])) {
     // TODO: 欄位資料檢查
 
+    $e_sql = "SELECT 1 FROM address_book WHERE email=?";
+    $e_stmt = $pdo->prepare($e_sql);
+    $e_stmt->execute([$_POST['email']]);
+
+    if( $e_stmt->rowCount() ){
+        $output['error'] = 'Email 重複了';
+        echo json_encode($output, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
 
 
 
