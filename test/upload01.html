@@ -6,8 +6,11 @@
 </head>
 <body>
 
+<a onclick="document.querySelector('input[type=file]').click()" style="cursor: pointer">美美的按鈕</a>
+
+
 <form method="post" action="upload-test01.php" enctype="multipart/form-data">
-    <input type="file" name="myfiles" accept="image/*">
+    <input type="file" name="myfiles" accept="image/*" style="display: none">
     <br>
     <input type="submit">
 </form>
@@ -16,3 +19,7 @@
 
 </body>
 </html>
+
+<!--
+https://developer.mozilla.org/zh-TW/docs/Web/API/FileReader/readAsDataURL
+-->

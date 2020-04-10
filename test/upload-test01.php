@@ -4,8 +4,13 @@ $uploads = __DIR__. '/uploads/';
 $output = [
     'newname' => '',
     'name' => '',
-    'error' => ''
+    'error' => '沒有上傳檔案'
 ];
+
+if(!isset($_FILES['myfiles']) or !isset($_FILES['myfiles']['name'])){
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 $ext = '';
 switch($_FILES['myfiles']['type']){
