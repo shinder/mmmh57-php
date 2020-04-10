@@ -71,6 +71,7 @@ $stmt = $pdo->query($sql);
                     <th scope="col">Email</th>
                     <th scope="col">Birthday</th>
                     <th scope="col">Address</th>
+                    <th scope="col"><i class="fas fa-edit"></i></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,11 @@ $stmt = $pdo->query($sql);
                         <td><?= strip_tags($r['address']) ?></td>
                         */ ?>
                         <td><?= htmlentities($r['address']) ?></td>
+                        <td>
+                            <a href="data-edit.php?sid=<?= $r['sid'] ?>">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
                     </tr>
                 <?php endwhile; ?>
                 </tbody>
