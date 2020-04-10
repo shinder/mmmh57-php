@@ -27,7 +27,13 @@ $stmt = $pdo->query($sql);
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
+    <style>
+        tbody tr i.fa-trash-alt {
+            color: red;
+        }
 
+
+    </style>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -58,6 +64,7 @@ $stmt = $pdo->query($sql);
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
+                    <th scope="col"><i class="fas fa-trash-alt"></i></th>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Mobile</th>
@@ -69,6 +76,11 @@ $stmt = $pdo->query($sql);
                 <tbody>
                 <?php while ($r = $stmt->fetch()): ?>
                     <tr>
+                        <td>
+                            <a href="data-delete.php?sid=<?= $r['sid'] ?>">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
                         <td><?= $r['sid'] ?></td>
                         <td><?= $r['name'] ?></td>
                         <td><?= $r['mobile'] ?></td>
