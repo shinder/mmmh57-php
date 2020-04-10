@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="javascript: f()" onclick="g(event)">link</a>
+
+
+<script>
+    const f = ()=>{
+      console.log('ffff');
+    };
+
+    const g = (event)=>{
+        event.preventDefault(); // 取消預設的行為
+        console.log('gggg');
+    };
+</script>
+</body>
+</html>
