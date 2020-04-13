@@ -79,9 +79,28 @@ $page_name = 'data-list2';
 const pagination = $('.pagination'),
     tbody = $('.data-tbody')
 
+
+const paginationTpl = o=>{
+    // {active:true, page:2}
+    return `
+        <li class="page-item ${o.active ? 'active' : ''}">
+            <a class="page-link" href="?page=${o.page}">${o.page}</a>
+        </li>
+    `;
+};
+
 function getDataByPage(page=1){
     $.get('data-list2-api.php', {page:page}, function(data){
         console.log(data);
+        let pStr = '';
+        for(let i=1; i<=data.totalPages; i++){
+            pStr += paginationTpl({
+                active: false,
+                page: i
+            })
+        }
+        pagination.html(pStr);
+
     }, 'json');
 }
 
