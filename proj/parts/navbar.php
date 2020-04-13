@@ -21,13 +21,25 @@ if(! isset($page_name)){
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item <?= $page_name=='login' ? 'active' : '' ?>">
-                    <a class="nav-link" href="login.php">登入</a>
-                </li>
-                <li class="nav-item <?= $page_name=='data-insert' ? 'active' : '' ?>">
-                    <a class="nav-link" href="register.php">註冊</a>
-                </li>
-
+                <?php // print_r($_SESSION['loginUser'])  ?>
+                <?php if(isset($_SESSION['loginUser'])):  ?>
+                    <li class="nav-item">
+                        <a class="nav-link"><?= $_SESSION['loginUser']['nickname'] ?></a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="">修改會員資料</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="">登出</a>
+                    </li>
+                <?php else:  ?>
+                    <li class="nav-item <?= $page_name=='login' ? 'active' : '' ?>">
+                        <a class="nav-link" href="login.php">登入</a>
+                    </li>
+                    <li class="nav-item <?= $page_name=='data-insert' ? 'active' : '' ?>">
+                        <a class="nav-link" href="register.php">註冊</a>
+                    </li>
+                <?php endif;  ?>
             </ul>
         </div>
     </div>
