@@ -84,7 +84,7 @@ const paginationTpl = o=>{
     // {active:true, page:2}
     return `
         <li class="page-item ${o.active ? 'active' : ''}">
-            <a class="page-link" href="#">${o.page}</a>
+            <a class="page-link" href="javascript:getDataByPage(${o.page})">${o.page}</a>
         </li>
     `;
 };
