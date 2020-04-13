@@ -84,7 +84,7 @@ const paginationTpl = o=>{
     // {active:true, page:2}
     return `
         <li class="page-item ${o.active ? 'active' : ''}">
-            <a class="page-link" href="?page=${o.page}">${o.page}</a>
+            <a class="page-link" href="#">${o.page}</a>
         </li>
     `;
 };
@@ -95,7 +95,7 @@ function getDataByPage(page=1){
         let pStr = '';
         for(let i=1; i<=data.totalPages; i++){
             pStr += paginationTpl({
-                active: false,
+                active: page===i,
                 page: i
             })
         }
