@@ -22,6 +22,9 @@ if(! isset($page_name)){
                 <li class="nav-item <?= $page_name=='data-insert2' ? 'active' : '' ?>">
                     <a class="nav-link" href="data-insert2.php">新增資料 2 ajax</a>
                 </li>
+                <li class="nav-item <?= $page_name=='data-list2' ? 'active' : '' ?>">
+                    <a class="nav-link" href="data-list2.php">資料列表 ajax</a>
+                </li>
             </ul>
         </div>
     </div>
