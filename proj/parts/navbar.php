@@ -26,6 +26,15 @@ if(! isset($page_name)){
                     <a class="nav-link" href="data-list2.php">資料列表 ajax</a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item <?= $page_name=='login' ? 'active' : '' ?>">
+                    <a class="nav-link" href="login.php">登入</a>
+                </li>
+                <li class="nav-item <?= $page_name=='data-insert' ? 'active' : '' ?>">
+                    <a class="nav-link" href="register.php">註冊</a>
+                </li>
+
+            </ul>
         </div>
     </div>
 </nav>
