@@ -89,11 +89,6 @@ const paginationTpl = o=>{
     `;
 };
 const escapeTag = str=>{
-  /*
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;'
-   */
   return str
       .split('&').join('&amp;')
       .split('<').join('&lt;')
