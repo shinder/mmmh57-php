@@ -88,10 +88,36 @@ const paginationTpl = o=>{
         </li>
     `;
 };
+const escapeTag = str=>{
+  /*
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+   */
+  return str
+      .split('&').join('&amp;')
+      .split('<').join('&lt;')
+      .split('>').join('&gt;');
+};
+
+const itemTpl = o => {
+    return `
+    <tr>
+        <td>${o.sid}</td>
+        <td>${escapeTag(o.name)}</td>
+        <td>${escapeTag(o.mobile)}</td>
+        <td>${escapeTag(o.email)}</td>
+        <td>${escapeTag(o.birthday)}</td>
+        <td>${escapeTag(o.address)}</td>
+    </tr>
+    `;
+
+};
 
 function getDataByPage(page=1){
     $.get('data-list2-api.php', {page:page}, function(data){
         console.log(data);
+        // 頁碼 ---
         let pStr = '';
         for(let i=1; i<=data.totalPages; i++){
             pStr += paginationTpl({
@@ -100,6 +126,14 @@ function getDataByPage(page=1){
             })
         }
         pagination.html(pStr);
+
+        // 資料表格 ---
+        let tStr = '';
+        for(let i=0; i<data.rows.length; i++){
+            let item = data.rows[i];
+            tStr += itemTpl(item);
+        }
+        tbody.html(tStr);
 
     }, 'json');
 }
