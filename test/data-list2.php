@@ -50,15 +50,15 @@ $page_name = 'data-list2';
                     <th scope="col">Address</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="data-tbody">
                 <!--
                     <tr>
-                        <td><?//= $r['sid'] ?></td>
-                        <td><?//= $r['name'] ?></td>
-                        <td><?//= $r['mobile'] ?></td>
-                        <td><?//= $r['email'] ?></td>
-                        <td><?//= $r['birthday'] ?></td>
-                        <td><?//= htmlentities($r['address']) ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     -->
                 </tbody>
@@ -69,6 +69,23 @@ $page_name = 'data-list2';
 
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
+/*
+    運作的流程 steps
+    1. 取得資料 (包成 function
+    2. 生頁碼列的按鈕
+    3. 生資料表格
+
+ */
+const pagination = $('.pagination'),
+    tbody = $('.data-tbody')
+
+function getDataByPage(page=1){
+    $.get('data-list2-api.php', {page:page}, function(data){
+        console.log(data);
+    }, 'json');
+}
+
+getDataByPage();
 
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
