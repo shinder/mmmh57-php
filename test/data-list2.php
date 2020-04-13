@@ -84,7 +84,7 @@ const paginationTpl = o=>{
     // {active:true, page:2}
     return `
         <li class="page-item ${o.active ? 'active' : ''}">
-            <a class="page-link" href="javascript:getDataByPage(${o.page})">${o.page}</a>
+            <a class="page-link" href="#${o.page}">${o.page}</a>
         </li>
     `;
 };
@@ -133,7 +133,20 @@ function getDataByPage(page=1){
     }, 'json');
 }
 
-getDataByPage();
+function whenHashChange(){
+    let hashStr = location.hash.slice(1);
+    let page = parseInt(hashStr);
+
+    if(page){
+        getDataByPage(page);
+    } else {
+        getDataByPage(1);
+    }
+}
+
+window.addEventListener('hashchange', whenHashChange);
+
+whenHashChange();
 
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
