@@ -25,6 +25,9 @@ if(! isset($page_name)){
                 <li class="nav-item <?= $page_name=='data-list2' ? 'active' : '' ?>">
                     <a class="nav-link" href="data-list2.php">資料列表 ajax</a>
                 </li>
+				<li class="nav-item <?= $page_name=='data-list3' ? 'active' : '' ?>">
+					<a class="nav-link" href="data-list3.php">資料列表 search</a>
+				</li>
             </ul>
         </div>
     </div>

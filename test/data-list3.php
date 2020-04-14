@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/__connect_db.php';
-$page_name = 'data-list2';
+$page_name = 'data-list3';
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
@@ -14,9 +14,11 @@ $page_name = 'data-list2';
     <div class="row">
         <div class="col">
             <form class="form-inline my-2 my-lg-0" onsubmit="return false;">
-                <input id="searchInput"
+                <input id="searchInput" onkeyup="goPage(1)"
                         class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="doSearch()">Search</button>
+				<!--
+                <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="goPage(1)">Search</button>
+                -->
             </form>
         </div>
     </div>
@@ -25,23 +27,6 @@ $page_name = 'data-list2';
         <div class="col">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <!--
-                    <li class="page-item ">
-                        <a class="page-link" href="?page=">
-                            <i class="fas fa-arrow-circle-left"></i>
-                        </a>
-                    </li>
-
-                    <li class="page-item ">
-                        <a class="page-link" href="?page="></a>
-                    </li>
-
-                    <li class="page-item ">
-                        <a class="page-link" href="?page=">
-                            <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </li>
-                    -->
                 </ul>
             </nav>
         </div>
@@ -61,16 +46,6 @@ $page_name = 'data-list2';
                 </tr>
                 </thead>
                 <tbody class="data-tbody">
-                <!--
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    -->
                 </tbody>
             </table>
         </div>
@@ -94,7 +69,7 @@ const paginationTpl = o=>{
     // {active:true, page:2}
     return `
         <li class="page-item ${o.active ? 'active' : ''}">
-            <a class="page-link" href='#{"page":${o.page}}'>${o.page}</a>
+            <a class="page-link" href="javascript:goPage(${o.page})">${o.page}</a>
         </li>
     `;
 };
@@ -147,7 +122,7 @@ function whenHashChange(){
     let hashStr = location.hash.slice(1); // 去掉 #
     console.log('hashStr:', hashStr);
     console.log('hashStr2:', decodeURIComponent(hashStr));
-    hashStr = decodeURIComponent(hashStr);
+    hashStr = decodeURIComponent(hashStr); // url decode
     let obj = {};
 
     try{
@@ -158,6 +133,12 @@ function whenHashChange(){
     console.log('obj:', obj);
     let page = obj.page;
     const keyword = obj.keyword;
+
+    // 由 hash 設定到搜尋欄
+    if(keyword !== $('#searchInput').val()){
+        $('#searchInput').val(keyword);
+	}
+
     if(page){
         getDataByPage(page, keyword);
     } else {
@@ -169,14 +150,11 @@ window.addEventListener('hashchange', whenHashChange);
 
 whenHashChange();
 
-function doSearch(){
-    const keyword = $('#searchInput').val();
-    const obj = {
-        page: 1,
-        keyword: keyword
-    };
-    location.href = '#' + JSON.stringify(obj);
+function goPage(page=1){
+    location.href = '#' + JSON.stringify({
+        page: page,
+        keyword: $('#searchInput').val()
+    });
 }
-
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
