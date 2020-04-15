@@ -85,7 +85,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
         </div>
         <div class="row">
             <?php foreach($rows as $r): ?>
-            <div class="col-md-3">
+            <div class="col-md-3 product-unit" data-sid="<?= $r['sid'] ?>">
                 <div class="card" >
                     <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -94,12 +94,12 @@ $cates = $pdo->query($c_sql)->fetchAll();
                         <p class="card-text"><i class="fas fa-dollar-sign"></i> <?= $r['price'] ?></p>
                         <form>
                             <div class="form-group">
-                                <select class="form-control" style="display: inline-block; width: auto">
+                                <select class="form-control qty" style="display: inline-block; width: auto">
                                     <?php for($i=1; $i<=10; $i++){ ?>
                                     <option value="<?= $i ?>"><?= $i ?></option>
                                     <?php } ?>
                                 </select>
-                                <button type="button" class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
+                                <button type="button" class="btn btn-primary add-to-cart-btn"><i class="fas fa-cart-plus"></i></button>
                             </div>
                         </form>
                     </div>
@@ -112,5 +112,16 @@ $cates = $pdo->query($c_sql)->fetchAll();
 
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
+<script>
+    const btn = $('.add-to-cart-btn');
 
+    btn.click(function(){
+        const sid = $(this).closest('.product-unit').attr('data-sid');
+        //const qty = $(this).prev().val();
+        const qty = $(this).closest('.product-unit').find('.qty').val();
+
+        console.log({sid, qty});
+    });
+
+</script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
