@@ -3,9 +3,16 @@ require __DIR__. '/__connect_db.php';
 $perPage = 4;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$cate = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
+
+$where = ' WHERE 1 ';
+if(! empty($cate)){
+    $where .= " AND category_sid=$cate ";
+}
+
 
 // 總筆數
-$t_sql = "SELECT COUNT(1) FROM products ";
+$t_sql = "SELECT COUNT(1) FROM products $where ";
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
 $totalPages = ceil($totalRows/$perPage); // 總頁數
@@ -15,7 +22,7 @@ if($page>$totalPages) $page=$totalPages;
 $rows = [];
 // 如果有資料
 if($totalRows>0){
-    $sql = sprintf("SELECT * FROM products LIMIT %s, %s", ($page-1)*$perPage, $perPage);
+    $sql = sprintf("SELECT * FROM products $where LIMIT %s, %s", ($page-1)*$perPage, $perPage);
     $stmt = $pdo->query($sql);
     $rows = $stmt->fetchAll();
 }
@@ -34,14 +41,12 @@ $cates = $pdo->query($c_sql)->fetchAll();
     <div class="col-md-3">
         <!-- 分類選單 -->
         <div class="btn-group-vertical" style="width: 100%">
-            <a type="button" href="" class="btn btn-outline-primary">所有商品</a>
+            <a type="button" href="?" class="btn <?= empty($cate) ? 'btn-primary' : 'btn-outline-primary' ?>">所有商品</a>
             <?php foreach($cates as $c): ?>
-            <a type="button" href="" class="btn btn-outline-primary"><?= $c['name'] ?></a>
+            <a type="button" href="?cate=<?= $c['sid'] ?>" class="btn <?= $cate==$c['sid'] ? 'btn-primary' : 'btn-outline-primary' ?>">
+                <?= $c['name'] ?></a>
             <?php endforeach; ?>
         </div>
-
-
-
     </div>
     <div class="col-md-9">
         <div class="row">
