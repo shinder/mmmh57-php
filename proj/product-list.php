@@ -31,7 +31,25 @@ if($totalRows>0){
     <div class="col-md-9">
         <div class="row">
             <div class="col">
-
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page-1 ?>">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </a>
+                        </li>
+                        <?php for($i=1; $i<=$totalPages; $i++): ?>
+                            <li class="page-item <?= $i===$page ? 'active' : '' ?>">
+                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
+                        <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page+1 ?>">
+                                <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="row">
@@ -40,9 +58,19 @@ if($totalRows>0){
                 <div class="card" >
                     <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title"><?= $r['bookname'] ?></h5>
-                        <p class="card-text"><?= $r['author'] ?></p>
-
+                        <h6 class="card-title"><?= $r['bookname'] ?></h6>
+                        <p class="card-text"><i class="fas fa-user-secret"></i> <?= $r['author'] ?></p>
+                        <p class="card-text"><i class="fas fa-dollar-sign"></i> <?= $r['price'] ?></p>
+                        <form>
+                            <div class="form-group">
+                                <select class="form-control" style="display: inline-block; width: auto">
+                                    <?php for($i=1; $i<=10; $i++){ ?>
+                                    <option value="<?= $i ?>"><?= $i ?></option>
+                                    <?php } ?>
+                                </select>
+                                <button type="button" class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
