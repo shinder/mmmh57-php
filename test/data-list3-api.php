@@ -5,11 +5,16 @@ $perPage = 5;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
+$where = ' WHERE 1 ';
+
 if(! empty($keyword)) {
-    $where = " WHERE `name` LIKE ". $pdo->quote("%${keyword}%"); // 跳脫
-} else {
-    $where = '';
+    $where .= " AND `name` LIKE ". $pdo->quote("%${keyword}%"); // 跳脫
 }
+/*
+if(! empty($cate)){
+    $where .= " AND `category_sid`=". intval($cate) );
+}
+*/
 
 $totalRows = $pdo->query("SELECT COUNT(1) FROM `address_book` $where ")
         ->fetch(PDO::FETCH_NUM)[0];
