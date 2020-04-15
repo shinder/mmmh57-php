@@ -120,7 +120,15 @@ $cates = $pdo->query($c_sql)->fetchAll();
         //const qty = $(this).prev().val();
         const qty = $(this).closest('.product-unit').find('.qty').val();
 
-        console.log({sid, qty});
+        //console.log({sid, qty});
+
+        $.get('add-to-cart-api.php', {sid, qty}, function(data){
+            let total = 0;
+            for(let i in data){
+                total += data[i];
+            }
+            $('.cart-count').text(total);
+        }, 'json');
     });
 
 </script>

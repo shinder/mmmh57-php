@@ -23,7 +23,7 @@ if(! empty($sid)){
         unset($_SESSION['cart'][$sid]);
     }
 }
-
+header('Content-Type: application/json');
 echo json_encode($_SESSION['cart']);
 
 
