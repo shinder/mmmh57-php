@@ -4,10 +4,12 @@ $perPage = 4;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $cate = isset($_GET['cate']) ? intval($_GET['cate']) : 0;
+$pageBtnQS = [];
 
 $where = ' WHERE 1 ';
 if(! empty($cate)){
     $where .= " AND category_sid=$cate ";
+    $pageBtnQS['cate'] = $cate;
 }
 
 
@@ -54,17 +56,26 @@ $cates = $pdo->query($c_sql)->fetchAll();
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item <?= $page==1 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page-1 ?>">
+                            <a class="page-link" href="?<?php
+                            $pageBtnQS['page']=$page-1;
+                            echo http_build_query($pageBtnQS)
+                            ?>">
                                 <i class="fas fa-arrow-circle-left"></i>
                             </a>
                         </li>
-                        <?php for($i=1; $i<=$totalPages; $i++): ?>
+                        <?php for($i=1; $i<=$totalPages; $i++):
+                            $pageBtnQS['page']=$i;
+                            ?>
                             <li class="page-item <?= $i===$page ? 'active' : '' ?>">
-                                <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                                <a class="page-link" href="?<?= http_build_query($pageBtnQS) ?>">
+                                    <?= $i ?></a>
                             </li>
                         <?php endfor; ?>
                         <li class="page-item <?= $page==$totalPages ? 'disabled' : '' ?>">
-                            <a class="page-link" href="?page=<?= $page+1 ?>">
+                            <a class="page-link" href="?<?php
+                            $pageBtnQS['page']=$page+1;
+                            echo http_build_query($pageBtnQS)
+                            ?>">
                                 <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </li>
