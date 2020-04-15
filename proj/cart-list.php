@@ -70,8 +70,13 @@ function changeQty(event){
     let tr = $(event.target).closest('tr');
     let sid = tr.attr('data-sid');
     let price = tr.find('.price').text();
-    tr.find('.sub-total').text(price*qty);
+
     console.log({sid, qty, price});
+    $.get('add-to-cart-api.php', {sid, qty}, function(data){
+        tr.find('.sub-total').text(price*qty);
+
+        countCartObj(data);
+    }, 'json');
 
 }
 </script>
