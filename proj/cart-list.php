@@ -23,11 +23,34 @@ if(!empty($pKeys)) {
 <div class="container">
 <div class="row">
     <div class="col">
-        <?php foreach($_SESSION['cart'] as $sid=>$qty): ?>
-            <p><?= $sid. ' - '. $data_ar[$sid]['bookname'] ?></p>
-            <p><?= $data_ar[$sid]['quantity'] ?></p>
-            <hr>
-        <?php endforeach; ?>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">del</th>
+                <th scope="col">封面</th>
+                <th scope="col">書名</th>
+                <th scope="col">價格</th>
+                <th scope="col">數量</th>
+                <th scope="col">小計</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($_SESSION['cart'] as $sid=>$qty): 
+                $item = $data_ar[$sid];
+                ?>
+            <tr data-sid="<?= $sid ?>">
+                <td>del</td>
+                <td><img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt=""></td>
+                <td><?= $item['bookname'] ?></td>
+                <td><?= $item['price'] ?></td>
+                <td><?= $item['quantity'] ?></td>
+                <td><?= $item['price']*$item['quantity'] ?></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+
     </div>
 
 </div>
