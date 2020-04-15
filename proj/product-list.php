@@ -15,7 +15,6 @@ if($page>$totalPages) $page=$totalPages;
 $rows = [];
 // 如果有資料
 if($totalRows>0){
-
     $sql = sprintf("SELECT * FROM products LIMIT %s, %s", ($page-1)*$perPage, $perPage);
     $stmt = $pdo->query($sql);
     $rows = $stmt->fetchAll();
@@ -25,10 +24,32 @@ if($totalRows>0){
 <?php include __DIR__ . '/parts/navbar.php'; ?>
 
 <div class="container">
-<pre>
-    <?php print_r($rows); ?>
+<div class="row">
+    <div class="col-md-3">
+        <!-- 分類選單 -->
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col">
 
-</pre>
+            </div>
+        </div>
+        <div class="row">
+            <?php foreach($rows as $r): ?>
+            <div class="col-md-3">
+                <div class="card" >
+                    <img src="imgs/small/<?= $r['book_id'] ?>.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $r['bookname'] ?></h5>
+                        <p class="card-text"><?= $r['author'] ?></p>
+
+                    </div>
+                </div>
+            </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+</div>
 
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
