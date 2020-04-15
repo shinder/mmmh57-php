@@ -123,11 +123,7 @@ $cates = $pdo->query($c_sql)->fetchAll();
         //console.log({sid, qty});
 
         $.get('add-to-cart-api.php', {sid, qty}, function(data){
-            let total = 0;
-            for(let i in data){
-                total += data[i];
-            }
-            $('.cart-count').text(total);
+            countCartObj(data);
         }, 'json');
     });
 

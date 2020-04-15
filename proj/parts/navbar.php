@@ -18,7 +18,7 @@ if(! isset($page_name)){
                 </li>
                 <li class="nav-item <?= $page_name=='data-insert' ? 'active' : '' ?>">
                     <a class="nav-link" href="cart-list.php">購物車
-                        <span class="badge badge-pill badge-info cart-count">0</span></a>
+                        <span class="badge badge-pill badge-info cart-count"></span></a>
                 </li>
             </ul>
             <ul class="navbar-nav">
