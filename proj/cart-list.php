@@ -23,10 +23,11 @@ if(!empty($pKeys)) {
 <div class="container">
 <div class="row">
     <div class="col">
-    <pre>
-        <?php print_r($data_ar) ?>
-
-    </pre>
+        <?php foreach($_SESSION['cart'] as $sid=>$qty): ?>
+            <p><?= $sid. ' - '. $data_ar[$sid]['bookname'] ?></p>
+            <p><?= $data_ar[$sid]['quantity'] ?></p>
+            <hr>
+        <?php endforeach; ?>
     </div>
 
 </div>
