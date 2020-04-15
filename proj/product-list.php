@@ -19,6 +19,12 @@ if($totalRows>0){
     $stmt = $pdo->query($sql);
     $rows = $stmt->fetchAll();
 }
+
+// 分類資料
+$c_sql = "SELECT * FROM categories WHERE parent_sid=0";
+$cates = $pdo->query($c_sql)->fetchAll();
+
+
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
 <?php include __DIR__ . '/parts/navbar.php'; ?>
@@ -27,6 +33,15 @@ if($totalRows>0){
 <div class="row">
     <div class="col-md-3">
         <!-- 分類選單 -->
+        <div class="btn-group-vertical" style="width: 100%">
+            <a type="button" href="" class="btn btn-outline-primary">所有商品</a>
+            <?php foreach($cates as $c): ?>
+            <a type="button" href="" class="btn btn-outline-primary"><?= $c['name'] ?></a>
+            <?php endforeach; ?>
+        </div>
+
+
+
     </div>
     <div class="col-md-9">
         <div class="row">
