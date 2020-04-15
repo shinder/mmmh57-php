@@ -26,7 +26,7 @@ if(!empty($pKeys)) {
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th scope="col">del</th>
+                <th scope="col"><i class="fas fa-trash-alt"></i></th>
                 <th scope="col">封面</th>
                 <th scope="col">書名</th>
                 <th scope="col">價格</th>
@@ -35,22 +35,29 @@ if(!empty($pKeys)) {
             </tr>
             </thead>
             <tbody>
-            <?php foreach($_SESSION['cart'] as $sid=>$qty): 
+            <?php
+            $total = 0;
+            foreach($_SESSION['cart'] as $sid=>$qty):
                 $item = $data_ar[$sid];
+                $total += $item['price']*$item['quantity'];
                 ?>
             <tr data-sid="<?= $sid ?>">
-                <td>del</td>
+                <td><a href=""><i class="fas fa-trash-alt"></i></a></td>
                 <td><img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt=""></td>
                 <td><?= $item['bookname'] ?></td>
-                <td><?= $item['price'] ?></td>
-                <td><?= $item['quantity'] ?></td>
-                <td><?= $item['price']*$item['quantity'] ?></td>
+                <td class="price"><?= $item['price'] ?></td>
+                <td>
+                    <input class="form-control" type="number" value="<?= $item['quantity'] ?>" onchange="changeQty(event)">
+                </td>
+                <td class="sub-total"><?= $item['price']*$item['quantity'] ?></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
 
-
+        <div class="alert alert-primary" role="alert">
+           總計: <span id="totalAmount"><?= $total ?></span>
+        </div>
     </div>
 
 </div>
@@ -58,6 +65,14 @@ if(!empty($pKeys)) {
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
+function changeQty(event){
+    let qty = $(event.target).val();
+    let tr = $(event.target).closest('tr');
+    let sid = tr.attr('data-sid');
+    let price = tr.find('.price').text();
+    tr.find('.sub-total').text(price*qty);
+    console.log({sid, qty, price});
 
+}
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
