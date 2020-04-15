@@ -2,9 +2,18 @@
 require __DIR__. '/__connect_db.php';
 
 $pKeys = array_keys($_SESSION['cart']);
+
+$rows = []; // 預設值
+$data_ar = []; // dict
+
 if(!empty($pKeys)) {
     $sql = sprintf("SELECT * FROM products WHERE sid IN(%s)", implode(',', $pKeys));
     $rows = $pdo->query($sql)->fetchAll();
+
+    foreach($rows as $r){
+        $r['quantity'] = $_SESSION['cart'][$r['sid']];
+        $data_ar[$r['sid']] = $r;
+    }
 }
 
 ?>
@@ -15,7 +24,7 @@ if(!empty($pKeys)) {
 <div class="row">
     <div class="col">
     <pre>
-        <?php print_r($rows) ?>
+        <?php print_r($data_ar) ?>
 
     </pre>
     </div>
