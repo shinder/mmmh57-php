@@ -36,27 +36,29 @@ if(!empty($pKeys)) {
             </thead>
             <tbody>
             <?php
-            $total = 0;
             foreach($_SESSION['cart'] as $sid=>$qty):
                 $item = $data_ar[$sid];
-                $total += $item['price']*$item['quantity'];
                 ?>
-            <tr data-sid="<?= $sid ?>">
+            <tr class="p-item" data-sid="<?= $sid ?>">
                 <td><a href=""><i class="fas fa-trash-alt"></i></a></td>
                 <td><img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt=""></td>
                 <td><?= $item['bookname'] ?></td>
-                <td class="price"><?= $item['price'] ?></td>
+                <td class="price" data-price="<?= $item['price'] ?>"></td>
                 <td>
-                    <input class="form-control" type="number" value="<?= $item['quantity'] ?>" onchange="changeQty(event)">
+                    <select class="form-control quantity" data-qty="<?= $item['quantity'] ?>">
+                        <?php for($i=1; $i<=20; $i++): ?>
+                            <option value="<?= $i ?>"><?= $i ?></option>
+                        <?php endfor; ?>
+                    </select>
                 </td>
-                <td class="sub-total"><?= $item['price']*$item['quantity'] ?></td>
+                <td class="sub-total"></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
 
         <div class="alert alert-primary" role="alert">
-           總計: <span id="totalAmount"><?= $total ?></span>
+           總計: <span id="totalAmount"></span>
         </div>
     </div>
 
@@ -79,5 +81,19 @@ function changeQty(event){
     }, 'json');
 
 }
+
+function calPrices() {
+    const p_items = $('.p-item');
+    p_items.each(function(i, el){
+        console.log( $(this).attr('data-sid') );
+
+
+    })
+
+
+
+}
+calPrices();
+
 </script>
 <?php include __DIR__ . '/parts/html-foot.php'; ?>
