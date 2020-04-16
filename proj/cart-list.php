@@ -45,7 +45,7 @@ if(!empty($pKeys)) {
                 <td><?= $item['bookname'] ?></td>
                 <td class="price" data-price="<?= $item['price'] ?>"></td>
                 <td>
-                    <select class="form-control quantity" data-qty="<?= $item['quantity'] ?>" onchange="calPrices()">
+                    <select class="form-control quantity" data-qty="<?= $item['quantity'] ?>" onchange="changeQty(event)">
                         <?php for($i=1; $i<=20; $i++): ?>
                             <option value="<?= $i ?>"><?= $i ?></option>
                         <?php endfor; ?>
@@ -67,17 +67,19 @@ if(!empty($pKeys)) {
 </div>
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
+
+const dallorCommas = function(n){
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+};
+
 function changeQty(event){
     let qty = $(event.target).val();
     let tr = $(event.target).closest('tr');
     let sid = tr.attr('data-sid');
-    let price = tr.find('.price').text();
 
-    console.log({sid, qty, price});
     $.get('add-to-cart-api.php', {sid, qty}, function(data){
-        tr.find('.sub-total').text(price*qty);
-
         countCartObj(data);
+        calPrices();
     }, 'json');
 
 }
@@ -103,11 +105,11 @@ function calPrices() {
 
         const $sub_total = $(el).find('.sub-total');
 
-        $sub_total.text('$ ' + $price.attr('data-price') * $qty.val());
+        $sub_total.text('$ ' + dallorCommas($price.attr('data-price') * $qty.val()));
         total += $price.attr('data-price') * $qty.val();
     });
 
-    $('#totalAmount').text( '$ ' + total);
+    $('#totalAmount').text( '$ ' + dallorCommas(total));
 
 }
 calPrices();
