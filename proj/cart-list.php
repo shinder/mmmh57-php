@@ -60,6 +60,13 @@ if(!empty($pKeys)) {
         <div class="alert alert-primary" role="alert">
            總計: <span id="totalAmount"></span>
         </div>
+        <?php if(isset($_SESSION['loginUser'])): ?>
+            <a href="save-orders.php" class="btn btn-success">結帳</a>
+        <?php else: ?>
+            <div class="alert alert-danger" role="alert">
+                請先登入會員再結帳
+            </div>
+        <?php endif; ?>
     </div>
 
 </div>
@@ -100,6 +107,7 @@ function calPrices() {
     const p_items = $('.p-item');
     let total = 0;
     if(! p_items.length){
+        alert('請先將商品加入購物車');
         location.href = 'product-list.php';
         return;
     }
