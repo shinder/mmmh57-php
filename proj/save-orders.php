@@ -35,9 +35,19 @@ $o_stmt->execute([
 
 $order_sid = $pdo->lastInsertId(); // 最近新增資料的 PK
 
+$od_sql = "INSERT INTO `order_details`(`order_sid`, `product_sid`, `price`, `quantity`) VALUES (?, ?, ?, ?)";
+$od_stmt = $pdo->prepare($od_sql);
 
+foreach($_SESSION['cart'] as $p_sid=>$qty){
+    $od_stmt->execute([
+        $order_sid,
+        $p_sid,
+        $data_ar[$p_sid]['price'],
+        $qty,
+    ]);
+}
 
-
+unset($_SESSION['cart']); // 清除購物車內容
 
 ?>
 <?php include __DIR__ . '/parts/html-head.php'; ?>
