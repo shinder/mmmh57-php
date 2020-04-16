@@ -40,7 +40,7 @@ if(!empty($pKeys)) {
                 $item = $data_ar[$sid];
                 ?>
             <tr class="p-item" data-sid="<?= $sid ?>">
-                <td><a href=""><i class="fas fa-trash-alt"></i></a></td>
+                <td><a href="#" onclick="removeProductItem(event)"><i class="fas fa-trash-alt"></i></a></td>
                 <td><img src="imgs/small/<?= $item['book_id'] ?>.jpg" alt=""></td>
                 <td><?= $item['bookname'] ?></td>
                 <td class="price" data-price="<?= $item['price'] ?>"></td>
@@ -72,6 +72,18 @@ const dallorCommas = function(n){
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
 
+function removeProductItem(event){
+    event.preventDefault(); // 避免 <a> 的連結
+    const tr = $(event.target).closest('tr.p-item')
+    const sid = tr.attr('data-sid');
+
+    $.get('add-to-cart-api.php', {sid}, function(data){
+        tr.remove();
+        countCartObj(data);
+        calPrices();
+    }, 'json');
+}
+
 function changeQty(event){
     let qty = $(event.target).val();
     let tr = $(event.target).closest('tr');
@@ -87,6 +99,10 @@ function changeQty(event){
 function calPrices() {
     const p_items = $('.p-item');
     let total = 0;
+    if(! p_items.length){
+        location.href = 'product-list.php';
+        return;
+    }
 
     p_items.each(function(i, el){
         console.log( $(el).attr('data-sid') );
