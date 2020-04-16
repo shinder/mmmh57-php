@@ -45,7 +45,7 @@ if(!empty($pKeys)) {
                 <td><?= $item['bookname'] ?></td>
                 <td class="price" data-price="<?= $item['price'] ?>"></td>
                 <td>
-                    <select class="form-control quantity" data-qty="<?= $item['quantity'] ?>">
+                    <select class="form-control quantity" data-qty="<?= $item['quantity'] ?>" onchange="calPrices()">
                         <?php for($i=1; $i<=20; $i++): ?>
                             <option value="<?= $i ?>"><?= $i ?></option>
                         <?php endfor; ?>
@@ -84,13 +84,30 @@ function changeQty(event){
 
 function calPrices() {
     const p_items = $('.p-item');
+    let total = 0;
+
     p_items.each(function(i, el){
-        console.log( $(this).attr('data-sid') );
+        console.log( $(el).attr('data-sid') );
+        // let price = parseInt( $(el).find('.price').attr('data-price') );
+        // let price = $(el).find('.price').attr('data-price') * 1;
 
+        const $price = $(el).find('.price'); // 價格的 <td>
+        $price.text( '$ ' + $price.attr('data-price') );
 
-    })
+        const $qty =  $(el).find('.quantity'); // <select> combo box
+        // 如果有的話才設定
+        if($qty.attr('data-qty')){
+            $qty.val( $qty.attr('data-qty') );
+        }
+        $qty.removeAttr('data-qty'); // 設定完就移除
 
+        const $sub_total = $(el).find('.sub-total');
 
+        $sub_total.text('$ ' + $price.attr('data-price') * $qty.val());
+        total += $price.attr('data-price') * $qty.val();
+    });
+
+    $('#totalAmount').text( '$ ' + total);
 
 }
 calPrices();
