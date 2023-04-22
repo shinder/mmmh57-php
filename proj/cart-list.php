@@ -75,7 +75,7 @@ if(!empty($pKeys)) {
 <?php include __DIR__ . '/parts/scripts.php'; ?>
 <script>
 
-const dallorCommas = function(n){
+const dollarCommas = function(n){
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 };
 
@@ -129,11 +129,11 @@ function calPrices() {
 
         const $sub_total = $(el).find('.sub-total');
 
-        $sub_total.text('$ ' + dallorCommas($price.attr('data-price') * $qty.val()));
+        $sub_total.text('$ ' + dollarCommas($price.attr('data-price') * $qty.val()));
         total += $price.attr('data-price') * $qty.val();
     });
 
-    $('#totalAmount').text( '$ ' + dallorCommas(total));
+    $('#totalAmount').text( '$ ' + dollarCommas(total));
 
 }
 calPrices();
